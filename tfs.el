@@ -2,6 +2,11 @@
   "location of the tf.exe command.  Defaults to \"c:\\Program Files\\Microsoft Visual Studio 9.0\\common7\\ide\\tf.exe\""
   :group 'tfs)
 
+(defvar tfs-status-mode-map (make-sparse-keymap)
+  "Keymap while temp-mode is active.")
+
+(define-minor-mode tfs-status-mode "Local mode for tfs status command" :init-value nil tfs-status-mode-map)
+
 (defcustom tfs--tfpt-exe  "c:\\Program Files\\Microsoft Team Foundation Server 2008 Power Tools\\TFPT.exe"
   "location of the tfpt.exe command.  Defaults to \"c:\\Program Files\\Microsoft Team Foundation Server 2008 Power Tools\\TFPT.exe\""
   :group 'tfs)
@@ -73,15 +78,18 @@
                          buffer-s
                          "\n")))))
 
-(defun tfs--execute-command (command format-function &optional filename)
-  (let* ((exitcode nil)
+(defun tfs--execute-command (command format-function kbdings-map)
+  (let* ((exitcode nil)                 ;
          (command-bufname (get-buffer-name command))
          (buffer (get-buffer-create command-bufname)))
     (with-current-buffer buffer
       (erase-buffer)
       (tfs--append-to-message-buffer (concat (get-action command) ":\t"
-                                            (prin1-to-string command) "\n"))
-      (setq exitcode (send-command command)))
+                                             (prin1-to-string command) "\n"))
+      (setq exitcode (send-command command))
+      (cl-loop for kbding in kbdings-map
+               do (define-key tfs-status-mode-map (kbd (car kbding)) `,(cdr kbding)))
+      (tfs-status-mode 1))
     (if (equal exitcode 0)
         (progn
           (funcall format-function buffer)
@@ -141,18 +149,24 @@
                                         `(:foreground ,(tfs--get-color (car file-info)))))
                           parsed-output)))
       (erase-buffer)
-      (read-only-mode nil)
       (insert "*** TF STATUS RESULTS ***\n\n\n")
       (font-lock-mode t)
-      (tfs--write-to-buffer lines buffer)
-      (read-only-mode t))))
+      (tfs--write-to-buffer lines buffer))))
 
 (defun tfs--write-to-buffer (lines buffer)
   (with-current-buffer buffer
     (cl-loop for line in lines
              do (insert line))))
 
+(defun goto-file-at-point ()
+  (interactive)
+  (let ((line (thing-at-point 'line t)))
+      (switch-to-buffer (find-file-noselect
+                     (substring line
+                                (+ (cl-search "*\t" line) 2)
+                                (- (cl-search "[" line) 1))))))
 (defun tfs-status ()
   (interactive)
   (tfs--execute-command (make-command 'status t)
-                        'tfs--status-reformat-output))
+                        'tfs--status-reformat-output
+                        '(("o" . goto-file-at-point))))
