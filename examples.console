@@ -1,0 +1,38 @@
+$/Cluster Management/Main/WAFL/Core/Common/Tracer.cs;C1143011
+  User       : v-milast
+  Date       : Monday, March 12, 2018 7:47:04 PM
+  Lock       : none
+  Change     : rename, edit
+  Workspace  : MDCSSQL-MILAST-CM
+  Source item: $/Cluster Management/Main/WAFL/Core/Core/Tracer.cs
+  Local item : [MDCSSQL-MILAST] E:\ClusterManager\Main\WAFL\Core\Common\Tracer.cs
+  File type  : utf-8
+
+$/Cluster Management/Main/WAFL/Core/Common/TracerConfiguration.cs;C1120943
+  User       : v-milast
+  Date       : Tuesday, March 13, 2018 1:19:15 PM
+  Lock       : none
+  Change     : rename
+  Workspace  : MDCSSQL-MILAST-CM
+  Source item: $/Cluster Management/Main/WAFL/Core/Core/TracerConfiguration.cs
+  Local item : [MDCSSQL-MILAST] E:\ClusterManager\Main\WAFL\Core\Common\TracerConfiguration.cs
+  File type  : Windows-1252
+
+$/Cluster Management/Main/WAFL/Core/Common/Tracing/MdsTracerHelper.cs;C1112985
+  User       : v-milast
+  Date       : Monday, March 12, 2018 7:47:04 PM
+  Lock       : none
+  Change     : rename, edit
+  Workspace  : MDCSSQL-MILAST-CM
+  Source item: $/Cluster Management/Main/WAFL/Core/Core/MdsTracerHelper.cs
+  Local item : [MDCSSQL-MILAST] E:\ClusterManager\Main\WAFL\Core\Common\Tracing\MdsTracerHelper.cs
+  File type  : utf-8
+
+$/Cluster Management/Main/WAFL/Core/StartWithLocalDb/App.config;C1191108
+  User       : v-milast
+  Date       : Monday, March 12, 2018 7:47:04 PM
+  Lock       : none
+  Change     : edit
+  Workspace  : MDCSSQL-MILAST-CM
+  Local item : [MDCSSQL-MILAST] E:\ClusterManager\Main\WAFL\Core\StartWithLocalDb\App.config
+  File type  : utf-8
